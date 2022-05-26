@@ -1,0 +1,51 @@
+.todo__items {
+  width: 50%;
+}
+
+.todo__item {
+  padding: 3%;
+  border: 3px solid black;
+  border-radius: 10px;
+  height: 60px;
+  background: gold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5% 0 0 0;
+}
+
+.todo__item:last-child{
+  margin: 5% 0 10% 0;
+}
+
+.todo__buttons {
+  display: flex;
+  margin: 0 5% 0 0;
+  align-items: center;
+}
+
+.todo__buttons button {
+  border-radius: 10px;
+  background: silver;
+  padding: 2%;
+  margin: 0 4%;
+  
+}
+
+.todo__text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.checked {
+  opacity: 0.5;
+}
+
+button:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.hidden{
+  display: none;
+}
