@@ -77,20 +77,25 @@ function TodoApp() {
 
   const saveTask = async(_id, obj) => {
     try {
-      const resp = await axios.patch(`${url}/updateTaskText`, {
-        _id,
-        text: obj.value
-      });
-    
-      allTasks.map(item => {
-        if (item._id === _id) {
-          item.text = resp.data.text;
-        }
-        return item;
-      });
+      if (obj.value.trim() !== '') {
+        const resp = await axios.patch(`${url}/updateTaskText`, {
+          _id,
+          text: obj.value
+        });
+      
+        allTasks.map(item => {
+          if (item._id === _id) {
+            item.text = resp.data.text;
+          }
+          return item;
+        });
 
-      setAllTasks(allTasks);
-      obj.setEdit(null);
+        setAllTasks(allTasks);
+        obj.setEdit(null);
+      } else {
+        obj.setValue('');
+        throw new Error();
+      }
     } catch (error) {
       alert('Введите данные');
     };

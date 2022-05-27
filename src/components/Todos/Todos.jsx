@@ -6,13 +6,14 @@ const Todos = ({task, delelteTask, completedTask, saveTask}) => {
   const [edit, setEdit] = useState(null);
   const [value, setValue] = useState('');
   const editTask = (_id, text) => {;
-    setEdit(_id)
-    setValue(text)
+    setEdit(_id);
+    setValue(text);
   }
 
-  const obj = {
+  const objForChange = {
     value,
-    setEdit
+    setEdit,
+    setValue
   };
 
   return (
@@ -30,7 +31,7 @@ const Todos = ({task, delelteTask, completedTask, saveTask}) => {
       {
         edit === _id ? 
         <div className="todo__buttons">
-          <button  onClick={() => saveTask(_id, obj)}>Сохранить</button>
+          <button  onClick={() => saveTask(_id, objForChange)}>Сохранить</button>
         </div> :
         <div className="todo__buttons">
           <input 
