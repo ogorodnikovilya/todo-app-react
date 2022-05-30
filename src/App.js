@@ -1,24 +1,18 @@
-import React from 'react';
-import './App.css';
-import PageRouter from './components/PageRouter/PageRouter';
-import { Link, Route, Switch, Redirect } from 'react-router-dom';
-import TodoApp from './components/todo-app/TodoApp';
+
+import PageRouter from 'components/PageRouter/PageRouter';
+import TodoApp from 'components/TodoApp/TodoApp';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import './App.scss';
 
 function App() {
   return (
   <div className='wrapper'>
     <h1>To do list on React</h1>
       <Switch>
-        <Route path='/pageRouter'>
-          <PageRouter/>
-        </Route>
-        <Route path='/tasks'>
-          <TodoApp/>
-        </Route>
-        <Redirect to='/tasks'/>
+        <Route path='/pageRouter' component={PageRouter}/>
+        <Route path='/tasks' component={TodoApp}/>
+        <Redirect from='/' to='/tasks'/>
       </Switch>
-    <Link to='/pageRouter'>Пустая страница с сообщением</Link>
-    <Link to='/tasks'>Приложение ToDo-List</Link>
   </div>
   );
 };
