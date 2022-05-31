@@ -1,8 +1,8 @@
-import AddTodo from 'components/AddTodo/AddTodo';
-import Todos from 'components/Todos/Todos';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { getTasks } from 'components/Service/service';
+import { getTasks } from 'components/service/taskService';
+import AddTodo from 'components/AddTodo/AddTodo';
+import Todos from 'components/Todos/Todos';
 import './style.scss';
 
 function TodoApp() {
@@ -13,8 +13,12 @@ function TodoApp() {
   }, []);
 
   const getAllTasks = async() => {
-    const resp = await getTasks();
-    setAllTasks(resp);
+    try {
+      const resp = (await getTasks()).data;
+      setAllTasks(resp);
+    } catch (error) {
+      alert('Ошибка в получении задач');
+    };
   };
 
   return (

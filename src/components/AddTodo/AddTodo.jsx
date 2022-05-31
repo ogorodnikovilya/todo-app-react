@@ -1,13 +1,10 @@
 import { useState } from 'react';
-import { addTask, deleteTasks } from 'components/Service/service';
+import { addTask, deleteTasks } from 'components/service/taskService';
+import { isValidValueInput } from 'components/helpers';
 import './style.scss';
 
 const AddTodo = ({allTasks, setAllTasks}) => {
   const [userInput, setUserInput] = useState('');
-
-  const onChange = (e) => {
-    setUserInput(e.currentTarget.value);
-  };
 
   const handleKey = (e) => {
     if (e.key === "Enter") {
@@ -15,19 +12,15 @@ const AddTodo = ({allTasks, setAllTasks}) => {
     };
   };
 
-  const isValidValueInput = (userInput) => {
-    let validValue = true;
-    return userInput.trim() === '' ? !validValue : validValue;
-  };
-
   const addNewTask = async(userInput) => {
     try {
-      if (!isValidValueInput(userInput)) {
+      if (isValidValueInput(userInput)) {
+        setUserInput('');
         throw new Error();
       };
 
-      const resp = await addTask(userInput);
-      setAllTasks([...allTasks, resp.data]);
+      const resp = (await addTask(userInput)).data;
+      setAllTasks([...allTasks, resp]);
       setUserInput('');
     } catch (error) {
       alert('Ошибка в добавлении задачи');
@@ -36,11 +29,7 @@ const AddTodo = ({allTasks, setAllTasks}) => {
 
   const deleteAllTasks = async() => {
     try {
-      const resp = await deleteTasks();
-      if (resp.message !== 'Deleted') {
-        throw new Error();
-      };
-
+      await deleteTasks();
       setAllTasks([]);
     } catch (error) {
       alert('Ошибка удаления задач');
@@ -55,16 +44,20 @@ const AddTodo = ({allTasks, setAllTasks}) => {
           onKeyDown={handleKey} 
           placeholder="Введите новую задачу..." 
           value={userInput}
-          onChange={onChange}
+          onChange={(e) => setUserInput(e.target.value)}
         />
       </div>
       <div className="todo-list__buttons-group">
         <button 
           className="todo-list__button-add"
-          onClick={() => addNewTask(userInput)}>Добавить</button>
+          onClick={() => addNewTask(userInput)}>
+            Добавить
+        </button>
         <button
           className="todo-list__button-delete"
-          onClick={deleteAllTasks}>Удалить все</button>
+          onClick={deleteAllTasks}>
+            Удалить все
+        </button>
       </div>
     </div>
   );

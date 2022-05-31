@@ -1,7 +1,7 @@
 
+import { Route, Switch, Redirect } from 'react-router-dom';
 import PageRouter from 'components/PageRouter/PageRouter';
 import TodoApp from 'components/TodoApp/TodoApp';
-import { Route, Switch, Redirect } from 'react-router-dom';
 import './App.scss';
 
 function App() {

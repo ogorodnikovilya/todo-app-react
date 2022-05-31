@@ -1,6 +1,6 @@
 import { useState } from 'react';
+import { deleteOneTask, completedOneTask } from 'components/service/taskService';
 import EditTodo from 'components/EditTodo/EditTodo';
-import { deleteOneTask, completedOneTask } from 'components/Service/service';
 import './style.scss';
 
 const Todos = ({task, allTasks, setAllTasks}) => {
@@ -13,10 +13,8 @@ const Todos = ({task, allTasks, setAllTasks}) => {
 
   const deleteTask = async(_id) => {
     try {
-      const resp = await deleteOneTask(_id);
-      if (resp.deletedCount === 1) {
-        setAllTasks([...allTasks.filter(task => task._id !== _id)]);
-      };
+      await deleteOneTask(_id);
+      setAllTasks([...allTasks.filter(task => task._id !== _id)]);
     } catch (error) {
       alert('Ошибка в удалении задачи');
     };
@@ -24,7 +22,7 @@ const Todos = ({task, allTasks, setAllTasks}) => {
 
   const completedTask = async(_id, isCheck) => {
     try {
-      const sortArr = [...await completedOneTask(_id, isCheck)];
+      const sortArr = [...(await completedOneTask(_id, isCheck)).data];
       sortArr.sort((a, b) => a.isCheck - b.isCheck);
       setAllTasks(sortArr);
     } catch (error) {

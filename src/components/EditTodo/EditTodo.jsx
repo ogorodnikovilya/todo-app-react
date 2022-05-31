@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { saveChangeTask } from 'components/Service/service';
+import { saveChangeTask } from 'components/service/taskService';
+import { isValidValueInput } from 'components/helpers';
 import 'components/Todos/style.scss'
 
 const EditTodo = ({allTasks, text, _id, setbuttonEditTask, setAllTasks}) => {
@@ -11,18 +12,13 @@ const EditTodo = ({allTasks, text, _id, setbuttonEditTask, setAllTasks}) => {
     };
   };
 
-  const isValidChangeInputText = (valueChangeInput) => {
-    let validText = true;
-    return valueChangeInput.trim() === '' ? !validText : validText;
-  };
-
   const saveTask = async() => {
     try {
-      if (!isValidChangeInputText(valueChangeInput)) {
-        setValueChangeInput('')
+      if (isValidValueInput(valueChangeInput)) {
+        setValueChangeInput('');
         throw new Error();
-      }
-      const resp = await saveChangeTask(_id, valueChangeInput)
+      };
+      const resp = (await saveChangeTask(_id, valueChangeInput)).data;
 
       allTasks.map(item => {
         if (item._id === _id) {
@@ -45,6 +41,7 @@ const EditTodo = ({allTasks, text, _id, setbuttonEditTask, setAllTasks}) => {
           value={valueChangeInput} 
           onChange={(e) => setValueChangeInput(e.target.value)}
           onKeyDown={handleKey}
+          placeholder='Измените задачу...'
         />
       </div>
 
