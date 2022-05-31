@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { getTasks } from 'components/service/taskService';
 import AddTodo from 'components/AddTodo/AddTodo';
 import Todos from 'components/Todos/Todos';
+import { getTasks } from 'service/taskService';
 import './style.scss';
 
-function TodoApp() {
+const TodoApp = () => {
   const [allTasks, setAllTasks] = useState([]);
 
   useEffect(() => {
@@ -14,8 +14,8 @@ function TodoApp() {
 
   const getAllTasks = async() => {
     try {
-      const resp = (await getTasks()).data;
-      setAllTasks(resp);
+      const resp = await getTasks();
+      setAllTasks(resp.data);
     } catch (error) {
       alert('Ошибка в получении задач');
     };

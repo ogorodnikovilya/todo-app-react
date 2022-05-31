@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { addTask, deleteTasks } from 'components/service/taskService';
-import { isValidValueInput } from 'components/helpers';
+import { addTask, deleteTasks } from 'service/taskService';
+import { isValidValueInput } from 'helpers/validation';
 import './style.scss';
 
 const AddTodo = ({allTasks, setAllTasks}) => {
@@ -12,15 +12,15 @@ const AddTodo = ({allTasks, setAllTasks}) => {
     };
   };
 
-  const addNewTask = async(userInput) => {
+  const addNewTask = async() => {
     try {
       if (isValidValueInput(userInput)) {
         setUserInput('');
         throw new Error();
       };
 
-      const resp = (await addTask(userInput)).data;
-      setAllTasks([...allTasks, resp]);
+      const resp = await addTask(userInput);
+      setAllTasks([...allTasks, resp.data]);
       setUserInput('');
     } catch (error) {
       alert('Ошибка в добавлении задачи');
@@ -50,7 +50,7 @@ const AddTodo = ({allTasks, setAllTasks}) => {
       <div className="todo-list__buttons-group">
         <button 
           className="todo-list__button-add"
-          onClick={() => addNewTask(userInput)}>
+          onClick={addNewTask}>
             Добавить
         </button>
         <button

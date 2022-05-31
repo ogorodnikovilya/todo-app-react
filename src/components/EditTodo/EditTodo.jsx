@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { saveChangeTask } from 'components/service/taskService';
-import { isValidValueInput } from 'components/helpers';
+import { saveChangeTask } from 'service/taskService';
+import { isValidValueInput } from 'helpers/validation';
 import 'components/Todos/style.scss'
 
 const EditTodo = ({allTasks, text, _id, setbuttonEditTask, setAllTasks}) => {
@@ -18,11 +18,11 @@ const EditTodo = ({allTasks, text, _id, setbuttonEditTask, setAllTasks}) => {
         setValueChangeInput('');
         throw new Error();
       };
-      const resp = (await saveChangeTask(_id, valueChangeInput)).data;
+      const resp = await saveChangeTask(_id, valueChangeInput);
 
       allTasks.map(item => {
         if (item._id === _id) {
-          item.text = resp.text;
+          item.text = resp.data.text;
         };
         return item;
       });

@@ -1,17 +1,17 @@
 import { useState } from 'react';
-import { deleteOneTask, completedOneTask } from 'components/service/taskService';
 import EditTodo from 'components/EditTodo/EditTodo';
+import { deleteOneTask, completedOneTask } from 'service/taskService';
 import './style.scss';
 
 const Todos = ({task, allTasks, setAllTasks}) => {
   const {_id, text, isCheck} = task;
   const [buttonEditTask, setbuttonEditTask] = useState();
 
-  const editTask = (_id) => {
+  const editTask = () => {
     setbuttonEditTask(_id);
   };
 
-  const deleteTask = async(_id) => {
+  const deleteTask = async() => {
     try {
       await deleteOneTask(_id);
       setAllTasks([...allTasks.filter(task => task._id !== _id)]);
@@ -20,11 +20,11 @@ const Todos = ({task, allTasks, setAllTasks}) => {
     };
   };
 
-  const completedTask = async(_id, isCheck) => {
+  const completedTask = async() => {
     try {
-      const sortArr = [...(await completedOneTask(_id, isCheck)).data];
-      sortArr.sort((a, b) => a.isCheck - b.isCheck);
-      setAllTasks(sortArr);
+      const resp = await completedOneTask(_id, isCheck);
+      const sortArr = [...resp.data];
+      setAllTasks(sortArr.sort((a, b) => a.isCheck - b.isCheck));
     } catch (error) {
       alert('Ошибка в выполнении задачи');
     };
@@ -49,12 +49,14 @@ const Todos = ({task, allTasks, setAllTasks}) => {
               <input 
                 type="checkbox" 
                 checked={isCheck} 
-                onChange={() => completedTask(_id, isCheck)}
+                onChange={completedTask}
               />
               <button 
                 className={isCheck ? 'hidden': ''} 
-                onClick={() => editTask(_id, text)}>Редактировать</button>
-              <button onClick={() => deleteTask(_id)}>Удалить</button>
+                onClick={editTask}>
+                  Редактировать
+                </button>
+              <button onClick={deleteTask}>Удалить</button>
             </div>
           </>
       }

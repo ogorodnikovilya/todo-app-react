@@ -1,10 +1,9 @@
-
 import { Route, Switch, Redirect } from 'react-router-dom';
 import PageRouter from 'components/PageRouter/PageRouter';
 import TodoApp from 'components/TodoApp/TodoApp';
 import './App.scss';
 
-function App() {
+const App = () => {
   return (
   <div className='wrapper'>
     <h1>To do list on React</h1>
