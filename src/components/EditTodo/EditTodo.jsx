@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { saveChangeTask } from 'service/taskService';
 import { isValidValueInput } from 'helpers/validation';
-import './style.scss'
+import './style.scss';
 
 const EditTodo = ({allTasks, text, _id, setButtonEditTask, setAllTasks}) => {
   const [valueChangeInput, setValueChangeInput] = useState(text);

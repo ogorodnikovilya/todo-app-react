@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import AddTodo from 'components/AddTodo/AddTodo';
 import Todos from 'components/Todos/Todos';
@@ -23,7 +22,6 @@ const TodoApp = () => {
 
   return (
     <>
-      <Link to='/pageRouter'>Пустая страница с сообщением</Link>
       <div className='todo-list'>
         <AddTodo 
           allTasks={allTasks}
