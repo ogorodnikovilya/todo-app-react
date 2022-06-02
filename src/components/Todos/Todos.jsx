@@ -4,11 +4,11 @@ import { deleteOneTask, completedOneTask } from 'service/taskService';
 import './style.scss';
 
 const Todos = ({task, allTasks, setAllTasks}) => {
-  const {_id, text, isCheck} = task;
-  const [buttonEditTask, setbuttonEditTask] = useState();
+  const { _id, text, isCheck } = task;
+  const [buttonEditTask, setButtonEditTask] = useState();
 
   const editTask = () => {
-    setbuttonEditTask(_id);
+    setButtonEditTask(_id);
   };
 
   const deleteTask = async() => {
@@ -32,36 +32,34 @@ const Todos = ({task, allTasks, setAllTasks}) => {
 
   return (
     <div className={isCheck ? 'todo__item checked' : 'todo__item'}>
-      {
-        buttonEditTask === _id
-         ? 
-          <EditTodo 
-            text={text}
-            _id={_id}
-            allTasks={allTasks}
-            setbuttonEditTask={setbuttonEditTask}
-            setAllTasks={setAllTasks}
-          /> 
-         :
-          <>
-            <div className="todo__text">{text}</div>
-            <div className="todo__buttons">
-              <input 
-                type="checkbox" 
-                checked={isCheck} 
-                onChange={completedTask}
-              />
-              <button 
-                className={isCheck ? 'hidden': ''} 
-                onClick={editTask}>
-                  Редактировать
-                </button>
-              <button onClick={deleteTask}>Удалить</button>
-            </div>
-          </>
-      }
+      { buttonEditTask === _id ? (
+        <EditTodo
+          text={text}
+          _id={_id}
+          allTasks={allTasks}
+          setButtonEditTask={setButtonEditTask}
+          setAllTasks={setAllTasks}
+        />
+      ) : (
+        <>
+          <div className="todo__text">{text}</div>
+          <div className="todo__buttons">
+            <input
+              type="checkbox"
+              checked={isCheck}
+              onChange={completedTask}
+            />
+            <button 
+              className={isCheck ? 'hidden' : ''}
+              onClick={editTask}>
+                Редактировать
+            </button>
+            <button onClick={deleteTask}>Удалить</button>
+          </div>
+        </>
+      )}
     </div>
-  )
+  );
 };
 
 export default Todos;

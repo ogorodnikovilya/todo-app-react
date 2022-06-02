@@ -32,14 +32,13 @@ const TodoApp = () => {
       </div>
       <div className='todo__items'>
         {allTasks.map(task => (
-            <Todos
-              allTasks={allTasks}
-              setAllTasks={setAllTasks}
-              task={task}
-              key={task._id}
-            />
-          )
-        )}
+          <Todos
+            allTasks={allTasks}
+            setAllTasks={setAllTasks}
+            task={task}
+            key={task._id}
+          />
+        ))}
       </div>
     </>
   );

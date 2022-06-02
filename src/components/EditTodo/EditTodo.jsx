@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { saveChangeTask } from 'service/taskService';
 import { isValidValueInput } from 'helpers/validation';
-import 'components/Todos/style.scss'
+import './style.scss'
 
-const EditTodo = ({allTasks, text, _id, setbuttonEditTask, setAllTasks}) => {
+const EditTodo = ({allTasks, text, _id, setButtonEditTask, setAllTasks}) => {
   const [valueChangeInput, setValueChangeInput] = useState(text);
 
   const handleKey = (e) => {
@@ -14,7 +14,7 @@ const EditTodo = ({allTasks, text, _id, setbuttonEditTask, setAllTasks}) => {
 
   const saveTask = async() => {
     try {
-      if (isValidValueInput(valueChangeInput)) {
+      if (!isValidValueInput(valueChangeInput)) {
         setValueChangeInput('');
         throw new Error();
       };
@@ -28,7 +28,7 @@ const EditTodo = ({allTasks, text, _id, setbuttonEditTask, setAllTasks}) => {
       });
 
       setAllTasks(allTasks);
-      setbuttonEditTask();
+      setButtonEditTask();
     } catch (error) {
       alert('Введите данные');
     };

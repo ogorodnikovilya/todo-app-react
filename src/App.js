@@ -7,11 +7,11 @@ const App = () => {
   return (
   <div className='wrapper'>
     <h1>To do list on React</h1>
-      <Switch>
-        <Route path='/pageRouter' component={PageRouter}/>
-        <Route path='/tasks' component={TodoApp}/>
-        <Redirect from='/' to='/tasks'/>
-      </Switch>
+    <Switch>
+      <Route path='/pageRouter' component={PageRouter}/>
+      <Route path='/tasks' component={TodoApp}/>
+      <Redirect from='/' to='/tasks'/>
+    </Switch>
   </div>
   );
 };

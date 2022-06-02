@@ -14,7 +14,7 @@ const AddTodo = ({allTasks, setAllTasks}) => {
 
   const addNewTask = async() => {
     try {
-      if (isValidValueInput(userInput)) {
+      if (!isValidValueInput(userInput)) {
         setUserInput('');
         throw new Error();
       };
@@ -40,9 +40,9 @@ const AddTodo = ({allTasks, setAllTasks}) => {
     <div className="todo-list__add">
       <div className="todo-list__entry-field">
         <input 
-          className="todo-list__input-value" 
+          className="todo-list__input-value"
           onKeyDown={handleKey} 
-          placeholder="Введите новую задачу..." 
+          placeholder="Введите новую задачу..."
           value={userInput}
           onChange={(e) => setUserInput(e.target.value)}
         />
