@@ -16,7 +16,7 @@ const addTask = (userInput) => {
 
 const completedOneTask = (_id, isCheck) => {
   return axios.patch(`${url}/updateTaskCheck`, {
-    _id: _id,
+    _id,
     isCheck: !isCheck
   });
 };
@@ -24,7 +24,7 @@ const completedOneTask = (_id, isCheck) => {
 const saveChangeTask = (_id, text) => {
   return axios.patch(`${url}/updateTaskText`, {
     _id,
-    text: text
+    text
   });
 };
 
