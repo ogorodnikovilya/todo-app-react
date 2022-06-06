@@ -46,7 +46,11 @@ const EditTodo = ({allTasks, text, _id, setButtonEditTask, setAllTasks}) => {
       </div>
 
       <div className="todo__buttons">
-        <button onClick={saveTask}>Сохранить</button>
+        <button
+          onClick={saveTask}
+          type='button'>
+            Сохранить
+        </button>
       </div>
     </>
   );

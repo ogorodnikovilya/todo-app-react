@@ -49,12 +49,17 @@ const Todos = ({task, allTasks, setAllTasks}) => {
               checked={isCheck}
               onChange={completedTask}
             />
-            <button 
+            <button
+              type='button'
               className={isCheck ? 'hidden' : ''}
               onClick={editTask}>
                 Редактировать
             </button>
-            <button onClick={deleteTask}>Удалить</button>
+            <button
+              type='button'
+              onClick={deleteTask}>
+                Удалить
+            </button>
           </div>
         </>
       )}

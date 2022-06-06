@@ -39,7 +39,7 @@ const AddTodo = ({allTasks, setAllTasks}) => {
   return (
     <div className="todo-list__add">
       <div className="todo-list__entry-field">
-        <input 
+        <input
           className="todo-list__input-value"
           onKeyDown={handleKey} 
           placeholder="Введите новую задачу..."
@@ -48,12 +48,14 @@ const AddTodo = ({allTasks, setAllTasks}) => {
         />
       </div>
       <div className="todo-list__buttons-group">
-        <button 
+        <button
+          type='button'
           className="todo-list__button-add"
           onClick={addNewTask}>
             Добавить
         </button>
         <button
+          type='button'
           className="todo-list__button-delete"
           onClick={deleteAllTasks}>
             Удалить все
