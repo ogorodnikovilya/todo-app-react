@@ -1,3 +1,1 @@
-export const isValidValueInput = (textFromInput) => {
-  return textFromInput.trim() !== '';
-};
+export const isValidValueInput = (textFromInput) => textFromInput.trim() !== '';

@@ -54,7 +54,7 @@ const Todos = ({ task, allTasks, setAllTasks }) => {
               className='todo__items-item-buttons-edit'
               type='button'
               onClick={editTask}
-              >
+            >
               Редактировать
             </button> 
             )}

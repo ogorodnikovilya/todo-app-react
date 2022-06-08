@@ -36,19 +36,19 @@ const EditTodo = ({ allTasks, text, _id, setButtonEditTask, setAllTasks }) => {
 
   return (
     <>
-        <input 
-          value={valueChangeInput} 
-          onChange={(e) => setValueChangeInput(e.target.value)}
-          onKeyDown={handleKey}
-          placeholder='Измените задачу...'
-        />
+      <input 
+        value={valueChangeInput} 
+        onChange={(e) => setValueChangeInput(e.target.value)}
+        onKeyDown={handleKey}
+        placeholder='Измените задачу...'
+      />
 
-        <button
-          onClick={saveTask}
-          type='button'
-        >
-          Сохранить
-        </button>
+      <button
+        onClick={saveTask}
+        type='button'
+      >
+        Сохранить
+      </button>
     </>
   );
 };
