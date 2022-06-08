@@ -3,7 +3,7 @@ import { saveChangeTask } from 'service/taskService';
 import { isValidValueInput } from 'helpers/validation';
 import './style.scss';
 
-const EditTodo = ({allTasks, text, _id, setButtonEditTask, setAllTasks}) => {
+const EditTodo = ({ allTasks, text, _id, setButtonEditTask, setAllTasks }) => {
   const [valueChangeInput, setValueChangeInput] = useState(text);
 
   const handleKey = (e) => {
@@ -36,22 +36,19 @@ const EditTodo = ({allTasks, text, _id, setButtonEditTask, setAllTasks}) => {
 
   return (
     <>
-      <div className="todo__buttons">
         <input 
           value={valueChangeInput} 
           onChange={(e) => setValueChangeInput(e.target.value)}
           onKeyDown={handleKey}
           placeholder='Измените задачу...'
         />
-      </div>
 
-      <div className="todo__buttons">
         <button
           onClick={saveTask}
-          type='button'>
-            Сохранить
+          type='button'
+        >
+          Сохранить
         </button>
-      </div>
     </>
   );
 };

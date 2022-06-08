@@ -7,9 +7,9 @@ const deleteTasks = () => axios.delete(`${url}/deleteAllTask`);
 
 const deleteOneTask = (_id) => axios.delete(`${url}/deleteTask/?id=${_id}`);
 
-const addTask = (userInput) => {
+const addTask = (text) => {
   return axios.post(`${url}/createTask`, {
-    text: userInput,
+    text,
     isCheck: false
   });
 };
@@ -17,7 +17,7 @@ const addTask = (userInput) => {
 const completedOneTask = (_id, isCheck) => {
   return axios.patch(`${url}/updateTaskCheck`, {
     _id,
-    isCheck: !isCheck
+    isCheck
   });
 };
 

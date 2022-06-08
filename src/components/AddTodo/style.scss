@@ -10,30 +10,36 @@
     linear-gradient(90deg, #6d6875, #b5838d, #e5989b, #ffb4a2, #ffcdb2);
   background-size: 6px 6px, 100%;
 
-  .todo-list__entry-field {
+  &-entry-field {
     width: 100%;
     margin: 0 3% 0 0;
 
-    input {
+    &-input {
       width: 100%;
       height: 35px;
       border-radius: 5px;
     }
   }
 
-  .todo-list__buttons-group button:first-child {
-    margin: 0 0 5% 0;
-  }
+  &-buttons-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-  .todo-list__button-add,
-  .todo-list__button-delete {
-    border-radius: 10px;
-    background: silver;
-    padding: 10%;
-    cursor: pointer;
-
-    &:hover {
-      transform: scale(1.1);
+    &-button-add {
+      margin: 0 0 5% 0;
+    }
+  
+    &-button-add,
+    &-button-delete {
+      border-radius: 10px;
+      background: silver;
+      padding: 10%;
+      cursor: pointer;
+  
+      &:hover {
+        transform: scale(1.1);
+      }
     }
   }
 }

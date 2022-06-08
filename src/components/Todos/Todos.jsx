@@ -3,7 +3,7 @@ import EditTodo from 'components/EditTodo/EditTodo';
 import { deleteOneTask, completedOneTask } from 'service/taskService';
 import './style.scss';
 
-const Todos = ({task, allTasks, setAllTasks}) => {
+const Todos = ({ task, allTasks, setAllTasks }) => {
   const { _id, text, isCheck } = task;
   const [buttonEditTask, setButtonEditTask] = useState();
 
@@ -22,7 +22,7 @@ const Todos = ({task, allTasks, setAllTasks}) => {
 
   const completedTask = async() => {
     try {
-      const resp = await completedOneTask(_id, isCheck);
+      const resp = await completedOneTask(_id, !isCheck);
       const sortArr = [...resp.data];
       setAllTasks(sortArr.sort((a, b) => a.isCheck - b.isCheck));
     } catch (error) {
@@ -31,7 +31,7 @@ const Todos = ({task, allTasks, setAllTasks}) => {
   };
 
   return (
-    <div className={isCheck ? 'todo__item checked' : 'todo__item'}>
+    <div className={isCheck ? 'todo__items-item checked' : 'todo__items-item'}>
       { buttonEditTask === _id ? (
         <EditTodo
           text={text}
@@ -42,23 +42,28 @@ const Todos = ({task, allTasks, setAllTasks}) => {
         />
       ) : (
         <>
-          <div className="todo__text">{text}</div>
-          <div className="todo__buttons">
+          <div className="todo__items-item-text">{text}</div>
+          <div className="todo__items-item-buttons">
             <input
               type="checkbox"
               checked={isCheck}
               onChange={completedTask}
             />
+            { !isCheck && (
             <button
+              className='todo__items-item-buttons-edit'
               type='button'
-              className={isCheck ? 'hidden' : ''}
-              onClick={editTask}>
-                Редактировать
-            </button>
+              onClick={editTask}
+              >
+              Редактировать
+            </button> 
+            )}
             <button
+              className='todo__items-item-buttons-delete'
               type='button'
-              onClick={deleteTask}>
-                Удалить
+              onClick={deleteTask}
+            >
+              Удалить
             </button>
           </div>
         </>
