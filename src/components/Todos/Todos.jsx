@@ -3,18 +3,19 @@ import EditTodo from 'components/EditTodo/EditTodo';
 import { deleteOneTask, completedOneTask } from 'service/taskService';
 import './style.scss';
 
-const Todos = ({ task, allTasks, setAllTasks }) => {
+const Todos = ({ task, allTasks, changeTask }) => {
   const { _id, text, isCheck } = task;
-  const [buttonEditTask, setButtonEditTask] = useState();
+  const [buttonIdEditTask, setButtonIdEditTask] = useState('');
 
-  const editTask = () => {
-    setButtonEditTask(_id);
+  const editTask = (id) => { // Здесь передаю айди, потому что данную функцию отправляю в нижний компонент (EditTodo), чтобы напрямую не передавать изменение стейта setButtonIdEditTask
+    setButtonIdEditTask(id);
   };
 
   const deleteTask = async() => {
     try {
       await deleteOneTask(_id);
-      setAllTasks([...allTasks.filter(task => task._id !== _id)]);
+      const updateTasks = allTasks.filter(oneTodo => oneTodo._id !== _id);
+      changeTask(updateTasks);
     } catch (error) {
       alert('Ошибка в удалении задачи');
     };
@@ -24,26 +25,26 @@ const Todos = ({ task, allTasks, setAllTasks }) => {
     try {
       const resp = await completedOneTask(_id, !isCheck);
       const sortArr = [...resp.data];
-      setAllTasks(sortArr.sort((a, b) => a.isCheck - b.isCheck));
+      changeTask(sortArr.sort((a, b) => a.isCheck - b.isCheck));
     } catch (error) {
       alert('Ошибка в выполнении задачи');
     };
   };
 
   return (
-    <div className={isCheck ? 'todo__items-item checked' : 'todo__items-item'}>
-      { buttonEditTask === _id ? (
+    <div className='todo__item'>
+      { buttonIdEditTask === _id ? (
         <EditTodo
           text={text}
           _id={_id}
           allTasks={allTasks}
-          setButtonEditTask={setButtonEditTask}
-          setAllTasks={setAllTasks}
+          editTask={editTask}
+          changeTask={changeTask}
         />
       ) : (
         <>
-          <div className="todo__items-item-text">{text}</div>
-          <div className="todo__items-item-buttons">
+          <div className="todo__item-text">{text}</div>
+          <div className="todo__item-buttons">
             <input
               type="checkbox"
               checked={isCheck}
@@ -51,15 +52,13 @@ const Todos = ({ task, allTasks, setAllTasks }) => {
             />
             { !isCheck && (
             <button
-              className='todo__items-item-buttons-edit'
               type='button'
-              onClick={editTask}
+              onClick={() => editTask(_id)}
             >
               Редактировать
             </button> 
             )}
             <button
-              className='todo__items-item-buttons-delete'
               type='button'
               onClick={deleteTask}
             >
