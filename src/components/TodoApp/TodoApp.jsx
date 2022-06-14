@@ -36,12 +36,12 @@ const TodoApp = () => {
       />
       {allTasks.map(task => (
         <Todos
-        allTasks={allTasks}
-        changeTask={changeTask}
-        task={task}
-        key={task._id}
+          allTasks={allTasks}
+          changeTask={changeTask}
+          task={task}
+          key={task._id}
         />
-        ))}
+      ))}
       <DeleteTodo
         changeTask={changeTask}
       />

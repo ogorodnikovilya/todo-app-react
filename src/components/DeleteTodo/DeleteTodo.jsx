@@ -1,6 +1,6 @@
 import { deleteTasks } from 'service/taskService';
 
-const DeleteTodo = ({changeTask}) => {
+const DeleteTodo = ({ changeTask }) => {
   const deleteAllTasks = async() => {
     try {
       await deleteTasks();
@@ -12,11 +12,11 @@ const DeleteTodo = ({changeTask}) => {
 
   return (
     <button
-    type='button'
-    onClick={deleteAllTasks}
-  >
-    Удалить все
-  </button>
+      type='button'
+      onClick={deleteAllTasks}
+    >
+      Удалить все
+    </button>
   );
 };
 

@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import EditTodo from 'components/EditTodo/EditTodo';
-import { deleteOneTask, completedOneTask } from 'service/taskService';
+import { deleteOneTask, completedOneTask, saveChangeTask } from 'service/taskService';
+import { isValidValueInput } from 'helpers/validation';
 import './style.scss';
 
 const Todos = ({ task, allTasks, changeTask }) => {
   const { _id, text, isCheck } = task;
   const [buttonIdEditTask, setButtonIdEditTask] = useState('');
 
-  const editTask = (id) => { // Здесь передаю айди, потому что данную функцию отправляю в нижний компонент (EditTodo), чтобы напрямую не передавать изменение стейта setButtonIdEditTask
-    setButtonIdEditTask(id);
+  const editTask = () => { 
+    setButtonIdEditTask(_id);
   };
 
   const deleteTask = async() => {
@@ -31,15 +32,33 @@ const Todos = ({ task, allTasks, changeTask }) => {
     };
   };
 
+  const updateTask = async(text) => {
+    try {
+      if (!isValidValueInput(text)) {
+        throw new Error();
+      };
+      const resp = await saveChangeTask(_id, text);
+
+      const updateTasks = allTasks.map(item => {
+        if (item._id === _id) {
+          item.text = resp.data.text;
+        };
+        return item;
+      });
+
+      changeTask(updateTasks);
+      setButtonIdEditTask();
+    } catch (error) {
+      alert('Введите данные');
+    };
+  };
+
   return (
     <div className='todo__item'>
       { buttonIdEditTask === _id ? (
         <EditTodo
           text={text}
-          _id={_id}
-          allTasks={allTasks}
-          editTask={editTask}
-          changeTask={changeTask}
+          updateTask={updateTask}
         />
       ) : (
         <>
@@ -51,12 +70,12 @@ const Todos = ({ task, allTasks, changeTask }) => {
               onChange={completedTask}
             />
             { !isCheck && (
-            <button
-              type='button'
-              onClick={() => editTask(_id)}
-            >
-              Редактировать
-            </button> 
+              <button
+                type='button'
+                onClick={editTask}
+              >
+                Редактировать
+              </button>
             )}
             <button
               type='button'
