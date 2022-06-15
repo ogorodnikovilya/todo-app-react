@@ -4,7 +4,7 @@ import { deleteOneTask, completedOneTask, saveChangeTask } from 'service/taskSer
 import { isValidValueInput } from 'helpers/validation';
 import './style.scss';
 
-const Todos = ({ task, allTasks, changeTask }) => {
+const Todos = ({ task, allTasks, setAllTasks }) => {
   const { _id, text, isCheck } = task;
   const [buttonIdEditTask, setButtonIdEditTask] = useState('');
 
@@ -16,7 +16,7 @@ const Todos = ({ task, allTasks, changeTask }) => {
     try {
       await deleteOneTask(_id);
       const updateTasks = allTasks.filter(oneTodo => oneTodo._id !== _id);
-      changeTask(updateTasks);
+      setAllTasks(updateTasks);
     } catch (error) {
       alert('Ошибка в удалении задачи');
     };
@@ -26,7 +26,7 @@ const Todos = ({ task, allTasks, changeTask }) => {
     try {
       const resp = await completedOneTask(_id, !isCheck);
       const sortArr = [...resp.data];
-      changeTask(sortArr.sort((a, b) => a.isCheck - b.isCheck));
+      setAllTasks(sortArr.sort((a, b) => a.isCheck - b.isCheck));
     } catch (error) {
       alert('Ошибка в выполнении задачи');
     };
@@ -37,16 +37,17 @@ const Todos = ({ task, allTasks, changeTask }) => {
       if (!isValidValueInput(text)) {
         throw new Error();
       };
-      const resp = await saveChangeTask(_id, text);
+      const response = await saveChangeTask(_id, text);
 
-      const updateTasks = allTasks.map(item => {
-        if (item._id === _id) {
-          item.text = resp.data.text;
-        };
-        return item;
-      });
+      const updatedTasks = allTasks.map(item => {
+        const newItem = {...item};
+        if (newItem._id === _id) {
+          newItem.text = response.data.text;
+        }
+        return newItem;
+    });
 
-      changeTask(updateTasks);
+      setAllTasks(updatedTasks);
       setButtonIdEditTask();
     } catch (error) {
       alert('Введите данные');

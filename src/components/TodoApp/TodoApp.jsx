@@ -20,13 +20,9 @@ const TodoApp = () => {
     };
   };
 
-    const addNewTask = (task) => {
-      setAllTasks([...allTasks, task]);
-    };
-
-    const changeTask = (state) => {
-      setAllTasks(state);
-    };
+  const addNewTask = (task) => {
+    setAllTasks([...allTasks, task]);
+  };
 
   return (
     <>
@@ -37,13 +33,13 @@ const TodoApp = () => {
       {allTasks.map(task => (
         <Todos
           allTasks={allTasks}
-          changeTask={changeTask}
+          setAllTasks={setAllTasks}
           task={task}
           key={task._id}
         />
       ))}
       <DeleteTodo
-        changeTask={changeTask}
+        setAllTasks={setAllTasks}
       />
     </>
   );

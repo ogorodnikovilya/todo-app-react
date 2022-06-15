@@ -1,10 +1,10 @@
 import { deleteTasks } from 'service/taskService';
 
-const DeleteTodo = ({ changeTask }) => {
+const DeleteTodo = ({ setAllTasks }) => {
   const deleteAllTasks = async() => {
     try {
       await deleteTasks();
-      changeTask([]);
+      setAllTasks([]);
     } catch (error) {
       alert('Ошибка удаления задач');
     };
