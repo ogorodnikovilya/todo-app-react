@@ -1,10 +1,10 @@
 import { deleteTasks } from 'service/taskService';
 
-const DeleteTodo = ({ setAllTasks }) => {
-  const deleteAllTasks = async() => {
+const DeleteTodo = ({ deleteAllTodo }) => {
+  const deleteAllTasks = async _ => {
     try {
       await deleteTasks();
-      setAllTasks([]);
+      deleteAllTodo();
     } catch (error) {
       alert('Ошибка удаления задач');
     };
@@ -12,7 +12,7 @@ const DeleteTodo = ({ setAllTasks }) => {
 
   return (
     <button
-      type='button'
+      type="button"
       onClick={deleteAllTasks}
     >
       Удалить все

@@ -3,21 +3,21 @@ import { useState } from 'react';
 const EditTodo = ({ text, updateTask }) => {
   const [valueChangeInput, setValueChangeInput] = useState(text);
 
-  const saveTask = async() => {
+  const saveTask = async _ => {
     updateTask(valueChangeInput);
   };
 
   return (
     <>
-      <input 
-        value={valueChangeInput} 
+      <input
+        value={valueChangeInput}
         onChange={(e) => setValueChangeInput(e.target.value)}
-        placeholder='Измените задачу...'
+        placeholder="Измените задачу..."
       />
 
       <button
         onClick={saveTask}
-        type='button'
+        type="button"
       >
         Сохранить
       </button>

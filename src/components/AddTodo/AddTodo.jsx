@@ -6,7 +6,7 @@ import './style.scss';
 const AddTodo = ({ addNewTask }) => {
   const [userInput, setUserInput] = useState('');
 
-  const newTask = async() => {
+  const newTask = async _ => {
     try {
       if (!isValidValueInput(userInput)) {
         throw new Error();
@@ -31,7 +31,7 @@ const AddTodo = ({ addNewTask }) => {
         />
       </div>
         <button
-          type='button'
+          type="button"
           onClick={newTask}
         >
           Добавить

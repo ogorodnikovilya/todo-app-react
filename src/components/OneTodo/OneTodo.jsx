@@ -4,50 +4,40 @@ import { deleteOneTask, completedOneTask, saveChangeTask } from 'service/taskSer
 import { isValidValueInput } from 'helpers/validation';
 import './style.scss';
 
-const Todos = ({ task, allTasks, setAllTasks }) => {
+const OneTodo = ({ task, checkedTask, modifyTask, deleteOneTodo }) => {
   const { _id, text, isCheck } = task;
   const [buttonIdEditTask, setButtonIdEditTask] = useState('');
 
-  const editTask = () => { 
+  const editTask = _ => {
     setButtonIdEditTask(_id);
   };
 
-  const deleteTask = async() => {
+  const deleteTask = async _ => {
     try {
       await deleteOneTask(_id);
-      const updateTasks = allTasks.filter(oneTodo => oneTodo._id !== _id);
-      setAllTasks(updateTasks);
+      deleteOneTodo(_id);
     } catch (error) {
       alert('Ошибка в удалении задачи');
     };
   };
 
-  const completedTask = async() => {
+  const completedTask = async _ => {
     try {
       const resp = await completedOneTask(_id, !isCheck);
-      const sortArr = [...resp.data];
-      setAllTasks(sortArr.sort((a, b) => a.isCheck - b.isCheck));
+      checkedTask(resp.data);
     } catch (error) {
       alert('Ошибка в выполнении задачи');
     };
   };
 
-  const updateTask = async(text) => {
+  const updateTask = async (text) => {
     try {
       if (!isValidValueInput(text)) {
         throw new Error();
       };
+
       const response = await saveChangeTask(_id, text);
-
-      const updatedTasks = allTasks.map(item => {
-        const newItem = {...item};
-        if (newItem._id === _id) {
-          newItem.text = response.data.text;
-        }
-        return newItem;
-    });
-
-      setAllTasks(updatedTasks);
+      modifyTask(response.data, _id);
       setButtonIdEditTask();
     } catch (error) {
       alert('Введите данные');
@@ -55,7 +45,7 @@ const Todos = ({ task, allTasks, setAllTasks }) => {
   };
 
   return (
-    <div className='todo__item'>
+    <div className="todo__item">
       { buttonIdEditTask === _id ? (
         <EditTodo
           text={text}
@@ -72,14 +62,14 @@ const Todos = ({ task, allTasks, setAllTasks }) => {
             />
             { !isCheck && (
               <button
-                type='button'
+                type="button"
                 onClick={editTask}
               >
                 Редактировать
               </button>
             )}
             <button
-              type='button'
+              type="button"
               onClick={deleteTask}
             >
               Удалить
@@ -91,4 +81,4 @@ const Todos = ({ task, allTasks, setAllTasks }) => {
   );
 };
 
-export default Todos;
+export default OneTodo;
