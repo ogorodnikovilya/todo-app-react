@@ -5,7 +5,6 @@ import { isValidValueInput } from 'helpers/validation';
 import './style.scss';
 
 const OneTodo = ({ task, checkedTask, modifyTask, deleteOneTodo }) => {
-  // const { _id, text, isCheck } = task;
   const [buttonIdEditTask, setButtonIdEditTask] = useState('');
 
   const editTask = _ => {
