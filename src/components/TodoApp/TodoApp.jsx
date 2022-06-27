@@ -7,11 +7,11 @@ import { getTasks } from 'service/taskService';
 const TodoApp = () => {
   const [allTasks, setAllTasks] = useState([]);
 
-  useEffect( _ => {
+  useEffect(() => {
     getAllTasks();
   }, []);
 
-  const getAllTasks = async _ => {
+  const getAllTasks = async () => {
     try {
       const resp = await getTasks();
       setAllTasks(resp.data.sort((a, b) => a.isCheck > b.isCheck));
@@ -20,16 +20,16 @@ const TodoApp = () => {
     };
   };
 
-  const addNewTask = (task) => {
+  const addNewTaskCallback = (task) => {
     setAllTasks([...allTasks, task]);
   };
 
-  const checkedTask = (listTasks) => {
+  const checkedTaskCallback = (listTasks) => {
     const sortArr = [...listTasks];
     setAllTasks(sortArr.sort((a, b) => a.isCheck > b.isCheck));
   };
 
-  const modifyTask = (changedTask, _id) => {
+  const modifyTaskCallback = (changedTask, _id) => {
     const updatedTasks = allTasks.map(item => {
       const newItem = {...item};
       if (newItem._id === _id) {
@@ -40,31 +40,31 @@ const TodoApp = () => {
     setAllTasks(updatedTasks.sort((a, b) => a.isCheck > b.isCheck));
   };
 
-  const deleteOneTodo = (_id) => {
+  const deleteOneTodoCallback = (_id) => {
     const updateTasks = allTasks.filter(oneTodo => oneTodo._id !== _id);
     setAllTasks(updateTasks);
   };
 
-  const deleteAllTodo = _ => {
+  const deleteAllTodoCallback = () => {
     setAllTasks([]);
   };
 
   return (
     <>
       <AddTodo 
-        addNewTask={addNewTask}
+        addNewTask={addNewTaskCallback}
       />
       {allTasks.map(task => (
         <OneTodo
-          checkedTask={checkedTask}
-          modifyTask={modifyTask}
-          deleteOneTodo={deleteOneTodo}
+          checkedTask={checkedTaskCallback}
+          modifyTask={modifyTaskCallback}
+          deleteOneTodo={deleteOneTodoCallback}
           task={task}
           key={task._id}
         />
       ))}
       <DeleteTodo
-        deleteAllTodo={deleteAllTodo}
+        deleteAllTodo={deleteAllTodoCallback}
       />
     </>
   );

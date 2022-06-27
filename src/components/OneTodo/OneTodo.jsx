@@ -7,11 +7,11 @@ import './style.scss';
 const OneTodo = ({ task, checkedTask, modifyTask, deleteOneTodo }) => {
   const [buttonIdEditTask, setButtonIdEditTask] = useState('');
 
-  const editTask = _ => {
+  const editTask = () => {
     setButtonIdEditTask(task._id);
   };
 
-  const deleteTask = async _ => {
+  const deleteTask = async () => {
     try {
       await deleteOneTask(task._id);
       deleteOneTodo(task._id);
@@ -20,7 +20,7 @@ const OneTodo = ({ task, checkedTask, modifyTask, deleteOneTodo }) => {
     };
   };
 
-  const completedTask = async _ => {
+  const completedTask = async () => {
     try {
       const resp = await completedOneTask(task._id, !task.isCheck);
       checkedTask(resp.data);
@@ -47,7 +47,7 @@ const OneTodo = ({ task, checkedTask, modifyTask, deleteOneTodo }) => {
     <div className="todo__item">
       { buttonIdEditTask === task._id ? (
         <EditTodo
-          text={text}
+          text={task.text}
           updateTask={updateTask}
         />
       ) : (

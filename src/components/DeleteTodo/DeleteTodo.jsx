@@ -1,7 +1,7 @@
 import { deleteTasks } from 'service/taskService';
 
 const DeleteTodo = ({ deleteAllTodo }) => {
-  const deleteAllTasks = async _ => {
+  const deleteAllTasks = async () => {
     try {
       await deleteTasks();
       deleteAllTodo();

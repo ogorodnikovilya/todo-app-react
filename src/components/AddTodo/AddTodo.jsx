@@ -6,7 +6,7 @@ import './style.scss';
 const AddTodo = ({ addNewTask }) => {
   const [userInput, setUserInput] = useState('');
 
-  const newTask = async _ => {
+  const newTask = async () => {
     try {
       if (!isValidValueInput(userInput)) {
         throw new Error();

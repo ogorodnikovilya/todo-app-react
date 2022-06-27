@@ -3,7 +3,9 @@ import { useState } from 'react';
 const EditTodo = ({ text, updateTask }) => {
   const [valueChangeInput, setValueChangeInput] = useState(text);
 
-  const saveTask = async _ => {
+  const saveTask = () => {
+
+    // Проверка находится в компоненте выше (OneTodo), там, где есть блоки try/catch
     updateTask(valueChangeInput);
   };
 
