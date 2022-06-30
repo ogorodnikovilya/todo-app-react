@@ -2,7 +2,7 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 import TodoApp from 'components/TodoApp/TodoApp';
 import './App.scss';
 
-const App = _ => {
+const App = () => {
   return (
   <div className="wrapper">
     <h1>To do list on React</h1>

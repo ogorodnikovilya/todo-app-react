@@ -1,9 +1,9 @@
 import axios from "axios";
 import { url } from "constant";
 
-const getTasks = _ => axios.get(`${url}/allTasks`);
+const getTasks = () => axios.get(`${url}/allTasks`);
 
-const deleteTasks = _ => axios.delete(`${url}/deleteAllTask`);
+const deleteTasks = () => axios.delete(`${url}/deleteAllTask`);
 
 const deleteOneTask = (_id) => axios.delete(`${url}/deleteTask/?id=${_id}`);
 
