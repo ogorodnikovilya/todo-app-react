@@ -1,0 +1,23 @@
+  .todo__item {
+    width: 50%;
+    padding: 3%;
+    border-radius: 10px;
+    height: 60px;
+    background: linear-gradient(to right, #ee9ca7, #ffdde1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 3% 0 0 0;
+
+    &-buttons {
+      display: flex;
+      margin: 0 5% 0 0;
+      align-items: center;
+    }
+
+    &-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: bold;
+    }
+  }
